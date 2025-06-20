@@ -18,13 +18,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 10px;
         }
 
         .chat-container {
             width: 100%;
-            max-width: 800px;
-            height: 90vh;
+            max-width: 1000px;
+            height: 95vh;
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
@@ -37,26 +37,31 @@
         .chat-header {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
-            padding: 20px;
-            text-align: center;
-            position: relative;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-shrink: 0;
         }
 
-        .chat-header h1 {
+        .chat-header-left h1 {
             font-size: 24px;
             font-weight: 600;
-            margin-bottom: 5px;
+            margin-bottom: 2px;
         }
 
-        .chat-header p {
+        .chat-header-left p {
             opacity: 0.9;
             font-size: 14px;
         }
 
-        .language-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
+        .chat-header-right {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .language-toggle, .clear-button {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             color: white;
@@ -67,7 +72,7 @@
             transition: all 0.3s ease;
         }
 
-        .language-toggle:hover {
+        .language-toggle:hover, .clear-button:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-2px);
         }
@@ -78,7 +83,8 @@
             overflow-y: auto;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
+            min-height: 0;
         }
 
         .message {
@@ -92,6 +98,10 @@
             flex-direction: row-reverse;
         }
 
+        .message.ai {
+            width: 100%;
+        }
+
         .message-avatar {
             width: 40px;
             height: 40px;
@@ -103,47 +113,139 @@
             color: white;
             font-size: 14px;
             flex-shrink: 0;
-        }
-
-        .message.user .message-avatar {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
 
-        .message.ai .message-avatar {
-            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-        }
-
         .message-content {
-            max-width: 70%;
             padding: 15px 20px;
             border-radius: 20px;
-            line-height: 1.5;
+            line-height: 1.6;
             word-wrap: break-word;
         }
 
         .message.user .message-content {
+            max-width: 70%;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-bottom-right-radius: 5px;
         }
 
         .message.ai .message-content {
-            background: #f8f9fa;
+            width: 100%;
+            background: transparent;
             color: #333;
-            border: 1px solid #e9ecef;
-            border-bottom-left-radius: 5px;
+            padding: 0;
+            border-radius: 0;
+        }
+
+        .ai-response {
+            width: 100%;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 4px solid #4facfe;
+        }
+
+        .ai-response.rtl {
+            direction: rtl;
+            text-align: right;
+            border-left: none;
+            border-right: 4px solid #4facfe;
+        }
+
+        .ai-response h1, .ai-response h2, .ai-response h3, .ai-response h4 {
+            font-weight: 900 !important;
+            margin: 15px 0 8px 0;
+            color: #2c3e50;
+            line-height: 1.4;
+        }
+
+        .ai-response h1 {
+            font-size: 20px;
+            font-weight: 900 !important;
+            border-bottom: 2px solid #4facfe;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+        }
+
+        .ai-response h2 {
+            font-size: 18px;
+            font-weight: 900 !important;
+            color: #34495e;
+            margin-left: 0;
+        }
+
+        .ai-response h3 {
+            font-size: 16px;
+            font-weight: 900 !important;
+            color: #5a6c7d;
+            margin-left: 10px;
+        }
+
+        .ai-response h4 {
+            font-size: 15px;
+            font-weight: 900 !important;
+            color: #6c757d;
+            margin-left: 20px;
+        }
+
+        .ai-response.rtl h2 {
+            margin-right: 0;
+            margin-left: 0;
+            font-weight: 900 !important;
+        }
+
+        .ai-response.rtl h3 {
+            margin-right: 10px;
+            margin-left: 0;
+            font-weight: 900 !important;
+        }
+
+        .ai-response.rtl h4 {
+            margin-right: 20px;
+            margin-left: 0;
+            font-weight: 900 !important;
+        }
+
+        .ai-response p {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .ai-response ul, .ai-response ol {
+            margin: 10px 0 10px 20px;
+        }
+
+        .ai-response.rtl ul, .ai-response.rtl ol {
+            margin: 10px 20px 10px 0;
+        }
+
+        .ai-response li {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
+
+        .rtl {
+            direction: rtl;
+            text-align: right;
+        }
+
+        .ltr {
+            direction: ltr;
+            text-align: left;
         }
 
         .chat-input-container {
             padding: 20px;
             background: white;
             border-top: 1px solid #e9ecef;
+            flex-shrink: 0;
         }
 
         .chat-input-form {
             display: flex;
             gap: 10px;
-            align-items: center;
+            align-items: flex-end;
         }
 
         .chat-input {
@@ -154,6 +256,10 @@
             font-size: 16px;
             outline: none;
             transition: all 0.3s ease;
+            min-height: 100px;
+            max-height: 200px;
+            resize: none;
+            font-family: inherit;
         }
 
         .chat-input:focus {
@@ -174,6 +280,7 @@
             justify-content: center;
             transition: all 0.3s ease;
             font-size: 18px;
+            flex-shrink: 0;
         }
 
         .send-button:hover {
@@ -193,10 +300,9 @@
             gap: 10px;
             padding: 15px 20px;
             background: #f8f9fa;
-            border-radius: 20px;
-            border-bottom-left-radius: 5px;
-            max-width: 70%;
-            margin-left: 50px;
+            border-radius: 15px;
+            border-left: 4px solid #4facfe;
+            width: 100%;
         }
 
         .typing-dots {
@@ -208,7 +314,7 @@
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #999;
+            background: #4facfe;
             animation: typing 1.4s infinite ease-in-out;
         }
 
@@ -218,7 +324,7 @@
         .error-message {
             background: #fee;
             color: #c33;
-            padding: 10px 15px;
+            padding: 15px 20px;
             border-radius: 10px;
             margin: 10px 0;
             border-left: 4px solid #c33;
@@ -264,13 +370,18 @@
                 max-width: 85%;
             }
 
-            .language-toggle {
-                position: static;
-                margin-top: 10px;
+            .chat-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
             }
 
-            .chat-header {
-                text-align: left;
+            .chat-header-right {
+                justify-content: center;
+            }
+
+            .chat-input {
+                min-height: 80px;
             }
         }
     </style>
@@ -278,9 +389,14 @@
 <body>
     <div class="chat-container">
         <div class="chat-header">
-            <h1>AI Assistant</h1>
-            <p>Ask me anything, I'm here to help!</p>
-            <button class="language-toggle" onclick="toggleLanguage()">🌐 EN</button>
+            <div class="chat-header-left">
+                <h1>AI Assistant</h1>
+                <p>Ask me anything, I'm here to help!</p>
+            </div>
+            <div class="chat-header-right">
+                <button class="language-toggle" onclick="toggleLanguage()">🌐 EN</button>
+                <button class="clear-button" onclick="clearChat()">🗑️ Clear</button>
+            </div>
         </div>
 
         <div class="chat-messages" id="chatMessages">
@@ -290,26 +406,25 @@
         </div>
 
         <div class="typing-indicator" id="typingIndicator">
-            <div class="message-avatar">
-                <span>AI</span>
-            </div>
             <div class="typing-dots">
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
                 <div class="typing-dot"></div>
             </div>
+            <span style="margin-left: 10px; color: #666;">AI is typing...</span>
         </div>
 
         <div class="chat-input-container">
             <form class="chat-input-form" onsubmit="sendMessage(event)">
-                <input 
-                    type="text" 
+                <textarea 
                     class="chat-input" 
                     id="messageInput" 
-                    placeholder="Type your message here..." 
+                    placeholder="Type your message here... (Click send button to send)" 
                     required
                     autocomplete="off"
-                >
+                    rows="3"
+                    oninput="adjustTextDirection()"
+                ></textarea>
                 <button type="submit" class="send-button" id="sendButton">
                     ➤
                 </button>
@@ -319,6 +434,7 @@
 
     <script>
         let currentLanguage = 'en';
+        let conversationHistory = [];
         const API_ENDPOINT = 'https://chat-test.a7mdz3ar.workers.dev';
 
         function toggleLanguage() {
@@ -329,8 +445,8 @@
             // Update placeholder text
             const input = document.getElementById('messageInput');
             input.placeholder = currentLanguage === 'en' 
-                ? 'Type your message here...' 
-                : 'اكتب رسالتك هنا...';
+                ? 'Type your message here... (Click send button to send)' 
+                : 'اكتب رسالتك هنا... (اضغط على زر الإرسال للإرسال)';
             
             // Update welcome message if it's still visible
             const welcomeMsg = document.querySelector('.welcome-message');
@@ -339,6 +455,80 @@
                     ? '👋 Welcome! Start a conversation by typing a message below.'
                     : '👋 مرحباً! ابدأ محادثة بكتابة رسالة أدناه.';
             }
+
+            adjustTextDirection();
+        }
+
+        function clearChat() {
+            const messagesContainer = document.getElementById('chatMessages');
+            conversationHistory = [];
+            messagesContainer.innerHTML = `
+                <div class="welcome-message">
+                    ${currentLanguage === 'en' 
+                        ? '👋 Welcome! Start a conversation by typing a message below.'
+                        : '👋 مرحباً! ابدأ محادثة بكتابة رسالة أدناه.'}
+                </div>
+            `;
+        }
+
+        function detectLanguage(text) {
+            const arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/;
+            return arabicRegex.test(text) ? 'ar' : 'en';
+        }
+
+        function adjustTextDirection() {
+            const input = document.getElementById('messageInput');
+            const text = input.value;
+            const detectedLang = detectLanguage(text);
+            
+            if (detectedLang === 'ar') {
+                input.classList.add('rtl');
+                input.classList.remove('ltr');
+            } else {
+                input.classList.add('ltr');
+                input.classList.remove('rtl');
+            }
+        }
+
+        function formatAIResponse(content) {
+            // Remove all * symbols and format properly
+            let formatted = content
+                // Remove all asterisks
+                .replace(/\*/g, '')
+                // Convert headers with proper hierarchy
+                .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
+                .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+                // Convert bullet points
+                .replace(/^• (.*$)/gm, '<li>$1</li>')
+                .replace(/^- (.*$)/gm, '<li>$1</li>')
+                // Convert numbered lists
+                .replace(/^\d+\. (.*$)/gm, '<li>$1</li>')
+                // Split into paragraphs and format
+                .split('\n')
+                .map(line => {
+                    line = line.trim();
+                    if (!line) return '';
+                    
+                    if (line.includes('<h1>') || line.includes('<h2>') || 
+                        line.includes('<h3>') || line.includes('<h4>')) {
+                        return line;
+                    } else if (line.includes('<li>')) {
+                        return line;
+                    } else if (line.length > 0) {
+                        return '<p>' + line + '</p>';
+                    }
+                    return '';
+                })
+                .join('\n');
+
+            // Wrap consecutive list items in ul tags
+            formatted = formatted.replace(/(<li>.*<\/li>\n?)+/g, function(match) {
+                return '<ul>' + match + '</ul>';
+            });
+
+            return formatted;
         }
 
         function addMessage(content, isUser = false) {
@@ -353,14 +543,31 @@
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
             
-            messageDiv.innerHTML = `
-                <div class="message-avatar">
-                    <span>${isUser ? 'You' : 'AI'}</span>
-                </div>
-                <div class="message-content">
-                    ${content}
-                </div>
-            `;
+            if (isUser) {
+                const detectedLang = detectLanguage(content);
+                const directionClass = detectedLang === 'ar' ? 'rtl' : 'ltr';
+                
+                messageDiv.innerHTML = `
+                    <div class="message-avatar">
+                        <span>You</span>
+                    </div>
+                    <div class="message-content ${directionClass}">
+                        ${content}
+                    </div>
+                `;
+            } else {
+                const formattedContent = formatAIResponse(content);
+                const detectedLang = detectLanguage(content);
+                const directionClass = detectedLang === 'ar' ? 'rtl' : 'ltr';
+                
+                messageDiv.innerHTML = `
+                    <div class="message-content">
+                        <div class="ai-response ${directionClass}">
+                            ${formattedContent}
+                        </div>
+                    </div>
+                `;
+            }
             
             messagesContainer.appendChild(messageDiv);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
@@ -398,11 +605,18 @@
             input.disabled = true;
             sendButton.disabled = true;
             
-            // Add user message
+            // Add user message to history
+            conversationHistory.push({
+                role: 'user',
+                content: message
+            });
+            
+            // Add user message to UI
             addMessage(message, true);
             
             // Clear input
             input.value = '';
+            input.style.height = '100px';
             
             // Show typing indicator
             showTypingIndicator();
@@ -415,7 +629,8 @@
                     },
                     body: JSON.stringify({
                         message: message,
-                        language: currentLanguage
+                        language: currentLanguage,
+                        history: conversationHistory.slice(-10) // Send last 10 messages for context
                     })
                 });
 
@@ -430,7 +645,15 @@
                 
                 // Check if response has the expected structure
                 if (data.choices && data.choices[0] && data.choices[0].message) {
-                    addMessage(data.choices[0].message.content);
+                    const aiResponse = data.choices[0].message.content;
+                    
+                    // Add AI response to history
+                    conversationHistory.push({
+                        role: 'assistant',
+                        content: aiResponse
+                    });
+                    
+                    addMessage(aiResponse);
                 } else if (data.error) {
                     throw new Error(data.message || 'Unknown error occurred');
                 } else {
@@ -451,6 +674,7 @@
                 input.disabled = false;
                 sendButton.disabled = false;
                 input.focus();
+                adjustTextDirection();
             }
         }
 
@@ -459,12 +683,18 @@
             document.getElementById('messageInput').focus();
         });
 
-        // Handle Enter key in input
-        document.getElementById('messageInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage(e);
-            }
+        // Auto-resize textarea - Enter key now creates new lines
+        document.getElementById('messageInput').addEventListener('input', function() {
+            this.style.height = '100px';
+            this.style.height = Math.min(this.scrollHeight, 200) + 'px';
+            adjustTextDirection();
+        });
+
+        // Allow Enter key to create new lines (no special handling needed)
+        document.getElementById('messageInput').addEventListener('keydown', function(event) {
+            // Enter key now works normally to create new lines
+            // Only the send button will send the message
+            adjustTextDirection();
         });
     </script>
 </body>
