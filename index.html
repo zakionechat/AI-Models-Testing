@@ -87,11 +87,17 @@
             min-height: 0;
         }
 
+        .message-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            animation: fadeInUp 0.3s ease;
+        }
+
         .message {
             display: flex;
             align-items: flex-start;
             gap: 10px;
-            animation: fadeInUp 0.3s ease;
         }
 
         .message.user {
@@ -153,58 +159,59 @@
             border-right: 4px solid #4facfe;
         }
 
-        .ai-response h1, .ai-response h2, .ai-response h3, .ai-response h4 {
-            font-weight: 900 !important;
-            margin: 15px 0 8px 0;
-            color: #2c3e50;
-            line-height: 1.4;
+        .ai-response h1, 
+        .ai-response h2, 
+        .ai-response h3, 
+        .ai-response h4,
+        .ai-response strong {
+            font-weight: bold !important;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
         }
 
         .ai-response h1 {
-            font-size: 20px;
-            font-weight: 900 !important;
-            border-bottom: 2px solid #4facfe;
-            padding-bottom: 5px;
-            margin-bottom: 15px;
+            font-size: 20px !important;
+            font-weight: bold !important;
+            margin: 15px 0 15px 0 !important;
+            color: #2c3e50 !important;
+            line-height: 1.4 !important;
+            border-bottom: 2px solid #4facfe !important;
+            padding-bottom: 5px !important;
         }
 
         .ai-response h2 {
-            font-size: 18px;
-            font-weight: 900 !important;
-            color: #34495e;
-            margin-left: 0;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            margin: 15px 0 8px 0 !important;
+            color: #34495e !important;
+            line-height: 1.4 !important;
         }
 
         .ai-response h3 {
-            font-size: 16px;
-            font-weight: 900 !important;
-            color: #5a6c7d;
-            margin-left: 10px;
+            font-size: 16px !important;
+            font-weight: bold !important;
+            margin: 15px 0 8px 10px !important;
+            color: #5a6c7d !important;
+            line-height: 1.4 !important;
         }
 
         .ai-response h4 {
-            font-size: 15px;
-            font-weight: 900 !important;
-            color: #6c757d;
-            margin-left: 20px;
+            font-size: 15px !important;
+            font-weight: bold !important;
+            margin: 15px 0 8px 20px !important;
+            color: #6c757d !important;
+            line-height: 1.4 !important;
         }
 
         .ai-response.rtl h2 {
-            margin-right: 0;
-            margin-left: 0;
-            font-weight: 900 !important;
+            margin: 15px 0 8px 0 !important;
         }
 
         .ai-response.rtl h3 {
-            margin-right: 10px;
-            margin-left: 0;
-            font-weight: 900 !important;
+            margin: 15px 10px 8px 0 !important;
         }
 
         .ai-response.rtl h4 {
-            margin-right: 20px;
-            margin-left: 0;
-            font-weight: 900 !important;
+            margin: 15px 20px 8px 0 !important;
         }
 
         .ai-response p {
@@ -223,6 +230,50 @@
         .ai-response li {
             margin: 5px 0;
             line-height: 1.5;
+        }
+
+        .copy-button {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 15px;
+            padding: 8px 12px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #6c757d;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            margin-top: 5px;
+        }
+
+        .copy-button:hover {
+            background: #e9ecef;
+            color: #495057;
+            transform: translateY(-1px);
+        }
+
+        .copy-button.copied {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .message.user .copy-button {
+            align-self: flex-end;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .message.user .copy-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .message.user .copy-button.copied {
+            background: rgba(40, 167, 69, 0.8);
+            border-color: rgba(40, 167, 69, 0.8);
         }
 
         .rtl {
@@ -491,15 +542,16 @@
         }
 
         function formatAIResponse(content) {
-            // Remove all * symbols and format properly
+            // Remove all * symbols and format properly with strong emphasis on bold
             let formatted = content
-                // Remove all asterisks
+                // Remove all asterisks and replace with strong tags
+                .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
                 .replace(/\*/g, '')
                 // Convert headers with proper hierarchy
-                .replace(/^#### (.*$)/gm, '<h4>$1</h4>')
-                .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-                .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-                .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+                .replace(/^#### (.*$)/gm, '<h4><strong>$1</strong></h4>')
+                .replace(/^### (.*$)/gm, '<h3><strong>$1</strong></h3>')
+                .replace(/^## (.*$)/gm, '<h2><strong>$1</strong></h2>')
+                .replace(/^# (.*$)/gm, '<h1><strong>$1</strong></h1>')
                 // Convert bullet points
                 .replace(/^• (.*$)/gm, '<li>$1</li>')
                 .replace(/^- (.*$)/gm, '<li>$1</li>')
@@ -531,6 +583,42 @@
             return formatted;
         }
 
+        function copyToClipboard(text, button) {
+            // Remove HTML tags for clean text copying
+            const cleanText = text.replace(/<[^>]*>/g, '').replace(/\n\s*\n/g, '\n').trim();
+            
+            navigator.clipboard.writeText(cleanText).then(function() {
+                // Change button appearance to show success
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '✓ Copied';
+                button.classList.add('copied');
+                
+                // Reset after 2 seconds
+                setTimeout(function() {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Failed to copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = cleanText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '✓ Copied';
+                button.classList.add('copied');
+                
+                setTimeout(function() {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
         function addMessage(content, isUser = false) {
             const messagesContainer = document.getElementById('chatMessages');
             
@@ -540,6 +628,9 @@
                 welcomeMessage.remove();
             }
 
+            const messageWrapper = document.createElement('div');
+            messageWrapper.className = 'message-wrapper';
+            
             const messageDiv = document.createElement('div');
             messageDiv.className = `message ${isUser ? 'user' : 'ai'}`;
             
@@ -555,6 +646,17 @@
                         ${content}
                     </div>
                 `;
+                
+                // Add copy button for user message
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.innerHTML = '📋 Copy';
+                copyButton.onclick = function() {
+                    copyToClipboard(content, this);
+                };
+                
+                messageWrapper.appendChild(messageDiv);
+                messageWrapper.appendChild(copyButton);
             } else {
                 const formattedContent = formatAIResponse(content);
                 const detectedLang = detectLanguage(content);
@@ -567,9 +669,20 @@
                         </div>
                     </div>
                 `;
+                
+                // Add copy button for AI message
+                const copyButton = document.createElement('button');
+                copyButton.className = 'copy-button';
+                copyButton.innerHTML = '📋 Copy';
+                copyButton.onclick = function() {
+                    copyToClipboard(content, this);
+                };
+                
+                messageWrapper.appendChild(messageDiv);
+                messageWrapper.appendChild(copyButton);
             }
             
-            messagesContainer.appendChild(messageDiv);
+            messagesContainer.appendChild(messageWrapper);
             messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
